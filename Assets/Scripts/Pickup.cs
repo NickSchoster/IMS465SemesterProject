@@ -36,11 +36,16 @@ public class Pickup : MonoBehaviour
         //pickup
         if (tempParent != null)
         {
-            isholding = true;
-            rb.useGravity = false;
-            rb.detectCollisions = false;
+            distance = Vector3.Distance(this.transform.position, tempParent.transform.position);
+            if (distance <= maxDistance)
+            {
 
-            this.transform.SetParent(tempParent.transform);
+                isholding = true;
+                rb.useGravity = false;
+                rb.detectCollisions = true;
+
+                this.transform.SetParent(tempParent.transform);
+            }
         }
         else
         {
@@ -50,16 +55,41 @@ public class Pickup : MonoBehaviour
 
     private void OnMouseUp()
     {
-        //drop
+        Drop();
     }
 
     private void OnMouseExit()
     {
-        //drop
+        Drop();
     }
 
     private void Hold()
     {
+        distance = Vector3.Distance(this.transform.position, tempParent.transform.position);
+        if (distance >= maxDistance)
+        {
+            Drop();
+        }
 
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            rb.AddForce(tempParent.transform.forward * throwForce);
+            Drop();
+        }
+    }
+
+    private void Drop()
+    {
+        if (isholding)
+        {
+            isholding = false;
+            objectPos = this.transform.position;
+            this.transform.position = objectPos;
+            this.transform.SetParent(null);
+            rb.useGravity = true;
+        }
     }
 }
