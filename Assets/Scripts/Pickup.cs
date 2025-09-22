@@ -3,7 +3,7 @@ using UnityEngine.InputSystem.Interactions;
 
 public class Pickup : MonoBehaviour
 {
-    bool isholding = false;
+    public bool isholding = false;
 
     [SerializeField]
     float throwForce = 600f;
@@ -15,6 +15,8 @@ public class Pickup : MonoBehaviour
     Rigidbody rb;
 
     Vector3 objectPos;
+
+    public PlatformTrigger platformTrigger;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -34,17 +36,20 @@ public class Pickup : MonoBehaviour
     private void OnMouseDown()
     {
         //pickup
-        if (tempParent != null)
+        if (platformTrigger != null && platformTrigger.isMoving == false)
         {
-            distance = Vector3.Distance(this.transform.position, tempParent.transform.position);
-            if (distance <= maxDistance)
+            if (tempParent != null)
             {
+                distance = Vector3.Distance(this.transform.position, tempParent.transform.position);
+                if (distance <= maxDistance)
+                {
 
-                isholding = true;
-                rb.useGravity = false;
-                rb.detectCollisions = true;
+                    isholding = true;
+                    rb.useGravity = false;
+                    rb.detectCollisions = true;
 
-                this.transform.SetParent(tempParent.transform);
+                    this.transform.SetParent(tempParent.transform);
+                }
             }
         }
         else
