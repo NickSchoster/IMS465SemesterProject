@@ -14,6 +14,7 @@ public class PlatformTrigger : MonoBehaviour
     public bool isMoving = false;
     private bool atPointA = false;
     private bool placedWhileMoving = false;
+    private bool stillColliding = false;
 
     public Pickup pickup;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -39,6 +40,11 @@ public class PlatformTrigger : MonoBehaviour
 
     }
 
+    private void OnCollisionStay(Collision collision)
+    {
+        stillColliding = true;
+    }
+
     private void OnCollisionExit(Collision collision)
     {
         if (!placedWhileMoving)
@@ -55,6 +61,8 @@ public class PlatformTrigger : MonoBehaviour
             }
         }
     }
+
+   
 
     private System.Collections.IEnumerator MoveTrigger()
     {
