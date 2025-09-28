@@ -21,6 +21,7 @@ public class PlatformTrigger : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        
         if (isMoving)
         {
             placedWhileMoving = true;
@@ -29,6 +30,8 @@ public class PlatformTrigger : MonoBehaviour
 
         if (collision.gameObject.CompareTag("BlueBlock") && !isMoving)
         {
+            
+            
             Debug.Log("BlueIsBlocking");
             StartCoroutine(MoveTrigger());
             StartCoroutine(MovePlatform());

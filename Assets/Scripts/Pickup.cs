@@ -16,7 +16,7 @@ public class Pickup : MonoBehaviour
 
     Vector3 objectPos;
 
-    public PlatformTrigger platformTrigger;
+    public PlatformMover platformTrigger;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
