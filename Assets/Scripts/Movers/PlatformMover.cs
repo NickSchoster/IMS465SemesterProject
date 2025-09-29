@@ -5,39 +5,48 @@ public class PlatformMover : MonoBehaviour
 {
     [SerializeField] private Transform pointA;
     [SerializeField] private Transform pointB;
-    [SerializeField] private float moveSpeed = 5f;
-  
+    [SerializeField] private float moveSpeed = 20f;
 
-    private bool atPointA = true;
-    public bool isMoving = false;
 
-  
+    private Coroutine moveRoutine;
 
-    public void StartMoving()
+    private void Start()
     {
-        
-        if (!isMoving)
+        // Snap platform to pointA on start (optional)
+        if (pointA != null)
         {
-            StartCoroutine(MovePlatform());
+            transform.position = pointA.position;
         }
     }
 
-    private IEnumerator MovePlatform()
+    public void MoveToPointA()
     {
-        isMoving = true;
-
-        Vector3 target;
-
-
-        if (atPointA)
+        if (pointA == null)
         {
-            target = pointB.position;
+            Debug.LogError("PointA not assigned on " + gameObject.name);
+            return;
         }
-        else
-        {
-            target = pointA.position;
-        }
+        StartMove(pointA.position);
+    }
 
+    public void MoveToPointB()
+    {
+        if (pointB == null)
+        {
+            Debug.LogError("PointB not assigned on " + gameObject.name);
+            return;
+        }
+        StartMove(pointB.position);
+    }
+
+    private void StartMove(Vector3 target)
+    {
+        if (moveRoutine != null) StopCoroutine(moveRoutine);
+        moveRoutine = StartCoroutine(MovePlatform(target));
+    }
+
+    private IEnumerator MovePlatform(Vector3 target)
+    {
         while (Vector3.Distance(transform.position, target) > 0.01f)
         {
             transform.position = Vector3.MoveTowards(
@@ -47,10 +56,8 @@ public class PlatformMover : MonoBehaviour
             );
             yield return null;
         }
-
         transform.position = target;
-        atPointA = !atPointA;
-        isMoving = false;
+        moveRoutine = null;
     }
 
 }

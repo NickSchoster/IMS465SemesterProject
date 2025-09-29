@@ -36,8 +36,7 @@ public class Pickup : MonoBehaviour
     private void OnMouseDown()
     {
         //pickup
-        if (platformTrigger != null && platformTrigger.isMoving == false)
-        {
+       
             if (tempParent != null)
             {
                 distance = Vector3.Distance(this.transform.position, tempParent.transform.position);
@@ -51,7 +50,7 @@ public class Pickup : MonoBehaviour
                     this.transform.SetParent(tempParent.transform);
                 }
             }
-        }
+        
         else
         {
             Debug.Log("Uh oh");
