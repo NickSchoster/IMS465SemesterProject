@@ -33,7 +33,7 @@ public class PlatformTrigger : MonoBehaviour
             
             
             Debug.Log("BlueIsBlocking");
-            StartCoroutine(MoveTrigger());
+            //StartCoroutine(MoveTrigger());
             StartCoroutine(MovePlatform());
             placedWhileMoving = false;
           
@@ -57,7 +57,7 @@ public class PlatformTrigger : MonoBehaviour
             {
                 Debug.Log("BlueIsBlocking");
                 //  StartCoroutine(ReverseMovePlatform());
-                StartCoroutine(ReverseMoveTrigger());
+               // StartCoroutine(ReverseMoveTrigger());
                 StartCoroutine(MovePlatform());
                
 

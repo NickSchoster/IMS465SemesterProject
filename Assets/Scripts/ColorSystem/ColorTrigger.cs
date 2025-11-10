@@ -16,7 +16,7 @@ public class ColorTrigger : MonoBehaviour
             targetPlatform.MoveToPointB();
             if (pressurePlate != null)
             {
-                pressurePlate.PressDown();
+               // pressurePlate.PressDown();
             }
         }
     }
@@ -29,7 +29,7 @@ public class ColorTrigger : MonoBehaviour
             targetPlatform.MoveToPointA();
             if (pressurePlate != null)
             {
-                pressurePlate.Release();
+              //  pressurePlate.Release();
             }
         }
     }
